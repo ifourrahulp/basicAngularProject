@@ -6,16 +6,17 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { AddEditRecordComponent } from '../add-edit-record/add-edit-record.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-export interface PeriodicElement {
-  name: string;
-  id: number;
-  startDate: string;
-  endDate: string;
-  uploadImage: string;
+export interface RecordElement {
+  firstName?: string;
+  lastName?: string;
+  id?: number;
+  startDate?: string;
+  endDate?: string;
+  uploadImage?: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+const ELEMENT_DATA: RecordElement[] = [
+  // {id: 1, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
   // {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   // {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
   // {id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
@@ -33,11 +34,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'startDate', 'endDate','uploadImage','id'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['firstName', 'lastName', 'startDate', 'endDate','uploadImage','id'];
+  dataSource = new MatTableDataSource<RecordElement>(ELEMENT_DATA);
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-
+  emptyData = new MatTableDataSource([{ empty: 'row' }]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public dialog: MatDialog, 
