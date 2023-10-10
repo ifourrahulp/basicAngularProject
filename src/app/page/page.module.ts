@@ -2,18 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { PageRoutingModule } from './page-routing.module';
-import { DataTablesModule } from 'angular-datatables';
-
-
+import { ConfirmPopupComponent } from './common/confirm-popup/confirm-popup.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     CommonModule,
     PageRoutingModule,
-    DataTablesModule
+    // DataTablesModule
+    SharedModule
   ]
 })
 export class PageModule { }
