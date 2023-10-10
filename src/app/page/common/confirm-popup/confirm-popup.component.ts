@@ -12,17 +12,13 @@ export interface DialogData {
   styleUrls: ['./confirm-popup.component.scss']
 })
 export class ConfirmPopupComponent implements OnInit {
-  constructor( public dialogRef: MatDialogRef<ConfirmPopupComponent>,  @Inject(MAT_DIALOG_DATA) public dialogData: DialogData,) { 
-    console.log(dialogData, 'sjsjs');
-  }
+  constructor( 
+    public dialogRef: MatDialogRef<ConfirmPopupComponent>,  
+    @Inject(MAT_DIALOG_DATA) public dialogData: DialogData) 
+    { }
 
   ngOnInit(): void {
   }
-
-
-  addEditRecordPopup(id: number) {}
-
-  deleteRecord(id: number) {}
 
   onNoClick(): void {
     this.dialogRef.close();

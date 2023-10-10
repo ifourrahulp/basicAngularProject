@@ -1,0 +1,56 @@
+.close-button{
+    // float: right;
+    top:-24px;
+    right:-24px;
+}
+  
+.close-icon {
+    transition: 1s ease-in-out;
+}
+
+::ng-deep .icon-outside .close-button{
+    top: -40px;
+    right: -34px;
+    background: red;
+    color: #fff !important;
+    position: absolute;
+  }
+  
+  ::ng-deep .icon-outside .mat-dialog-container {
+   overflow: unset
+  }
+
+  .close-wrapper {
+    position: relative;
+  }
+
+  .example-form form > * {
+    margin: 5px 4px;
+  }
+
+  .file-input {
+    display: none;
+  }
+
+
+.custom-half > .mat-form-field {
+    width: 49%;
+    margin: 5px 2px;
+}
+ 
+.custom-half > .mat-form-field {
+    width: 49%;
+    margin: 5px 2px;
+}
+
+.file-upload {
+    margin: 5px 2px; 
+}
+
+.custom-half > .mat-button-base {
+    margin: 8px 8px 8px 0;
+}
+  
+.btn-wrapper {
+    text-align: right;
+}
