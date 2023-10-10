@@ -5,8 +5,6 @@ export interface DialogData {
     id: number;
 }
 
-
-
 @Component({
     selector: 'app-add-edit-record',
     templateUrl: './add-edit-record.component.html',
