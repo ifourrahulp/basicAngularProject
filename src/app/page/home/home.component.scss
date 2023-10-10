@@ -1,3 +1,26 @@
 table {
     width: 100%;
   }
+
+::ng-deep {
+  .success-snackbar {
+    background-color: green !important;
+  }
+  .success-snackbar > simple-snack-bar   {
+    color: #fff !important;
+  }
+
+  .success-snackbar  > simple-snack-bar {
+    color: #fff !important;
+  }
+}
+
+.mat-flat-wrapper .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.add-button-container .mat-button-base {
+  margin: 8px 8px 8px 0;
+  float:right;
+}
+

@@ -1,16 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CONFIRM } from 'src/app/common/_enum/confirm.enum';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AddEditRecordComponent } from '../add-edit-record/add-edit-record.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 export interface PeriodicElement {
   name: string;
   id: number;
-  weight: number;
-  symbol: string;
+  startDate: string;
+  endDate: string;
+  uploadImage: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {id: 1, name: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
   // {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   // {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
   // {id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
@@ -28,15 +33,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'weight', 'symbol','id'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['name', 'startDate', 'endDate','uploadImage','id'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public dialog: MatDialog, 
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   addEditRecordPopup(id: number) {}
 
@@ -54,8 +66,32 @@ export class HomeComponent implements OnInit {
   }
 
   removeElementArray(id: number) {
-    let elements = this.dataSource.filter(x => x.id != id);
-    this.dataSource = elements;
-    this.cd.detectChanges();    
+    // let elements = this.dataSource.filter(x => x.id != id);
+    // this.dataSource = elements;
+    // this.openSnackBar();
+    // this.cd.detectChanges();    
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Delete Record successfully.', 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5 * 1000,
+      panelClass: 'success-snackbar'
+    });
+  }
+
+  addEditRecord(id: number = 0) {
+    const dialogRef = this.dialog.open(AddEditRecordComponent, {
+      data: {id: id},
+      panelClass:'icon-outside',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // console.log('The dialog was closed');
+      // if(result == CONFIRM.YES) {
+      //   this.removeElementArray(id); 
+      // }
+    });
   }
 }
