@@ -6,23 +6,25 @@
 
 <div class="example-form">
     <h2>{{isEditMode ? 'Edit Record' : 'Add Record'}}</h2>
-    <form>
+    <form [formGroup]="addRecordForm">
         <div class="custom-half">
             <mat-form-field appearance="outline">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="First Name" value="">
+                <input matInput placeholder="First Name" value="" formControlName="firstName">
+                <mat-error>Please Enter First Name</mat-error>
               </mat-form-field>
           
               <mat-form-field  appearance="outline">
                   <mat-label>Last Name</mat-label>
-                  <input matInput placeholder="Last Name" value="">
+                  <input matInput placeholder="Last Name" value="" formControlName="lastName">
+                  <mat-error>Please Enter Last Name</mat-error>
               </mat-form-field>
         </div>
        
         <div class="custom-half">
             <mat-form-field appearance="outline" class="example-form-field">
                 <mat-label>Start Date</mat-label>
-                <input matInput [matDatepicker]="datepicker">
+                <input matInput [matDatepicker]="datepicker" formControlName="startDate" [min]="minStartDate" [max]="maxStartDate" (dateChange)="startDateChange($event)">
                 <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                 <mat-datepicker #datepicker>
                 <mat-datepicker-actions>
@@ -30,19 +32,21 @@
                     <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
                 </mat-datepicker-actions>
                 </mat-datepicker> 
+                <mat-error>Please Select Start Date</mat-error>
             </mat-form-field>
       
           
             <mat-form-field appearance="outline" class="example-form-field">
                 <mat-label>End Date</mat-label>
-                <input matInput [matDatepicker]="endDatepicker">
-                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="endDatepicker" formControlName="endDate" [min]="minEndDate">
+                <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatepicker>
                 <mat-datepicker-actions>
                     <button mat-button matDatepickerCancel>Cancel</button>
                     <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
                 </mat-datepicker-actions>
                 </mat-datepicker> 
+                <mat-error>Please Select End Date</mat-error>
             </mat-form-field>
         </div>
       
@@ -56,12 +60,13 @@
                 (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
                 </button>
+                
             </div>
         </div>
        
         <div class="custom-half btn-wrapper">
-            <button mat-flat-button color="warn">Cancel</button>
-            <button mat-flat-button color="primary"  cdkFocusInitial>Save</button>
+            <button mat-flat-button color="warn" type="button" (click)="oncancel()">Cancel</button>
+            <button mat-flat-button color="primary"  (click)="onSubmit()">Save</button>
         </div>
            
       </form>

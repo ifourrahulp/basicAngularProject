@@ -6,6 +6,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { AddEditRecordComponent } from '../add-edit-record/add-edit-record.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { CommonService } from 'src/app/common/_service/common.service';
 export interface RecordElement {
   firstName?: string;
   lastName?: string;
@@ -15,17 +16,13 @@ export interface RecordElement {
   uploadImage?: string;
 }
 
-const ELEMENT_DATA: [] = [
-  // {id: 1, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-  // {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  // {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  // {id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  // {id: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  // {id: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {id: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {id: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {id: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {id: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+const ELEMENT_DATA: RecordElement[] = [
+//  {id: 1, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+//  {id: 2, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+//  {id: 3, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+//  {id: 4, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+//  {id: 5, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
+//  {id: 6, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
 ];
 @Component({
   selector: 'app-home',
@@ -35,17 +32,19 @@ const ELEMENT_DATA: [] = [
 })
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'startDate', 'endDate','uploadImage','id'];
-  emptyColumns: string[] = ['empty-row'];
+  // emptyColumns: string[] = ['empty-row'];
   dataSource = new MatTableDataSource<RecordElement>(ELEMENT_DATA);
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  emptyData = new MatTableDataSource([{ empty: 'row' }]);
+ 
+  // emptyData = new MatTableDataSource([{ empty: 'row' }]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public dialog: MatDialog, 
-    private cd: ChangeDetectorRef, private _snackBar: MatSnackBar) { }
+    private cd: ChangeDetectorRef, 
+    private _snackBar: MatSnackBar, 
+    private commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.getRecords();
   }
 
   ngAfterViewInit() {
@@ -70,18 +69,11 @@ export class HomeComponent implements OnInit {
   removeElementArray(id: number) {
     let elements = this.dataSource?.data?.filter(x => x.id != id);
     this.dataSource.data = elements;
-    this.openSnackBar();
+    this.commonService.openSnackBar('Record deleted successfully.');
     this.cd.detectChanges();    
   }
 
-  openSnackBar() {
-    this._snackBar.open('Delete Record successfully.', 'X', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 5 * 1000,
-      panelClass: 'success-snackbar'
-    });
-  }
+ 
 
   addEditRecord(id: number = 0) {
     const dialogRef = this.dialog.open(AddEditRecordComponent, {
@@ -90,9 +82,18 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result == CONFIRM.YES) {
-        this.removeElementArray(id); 
-      }
+      this.getRecords();
     });
+
+    
   }
+
+  getRecords() {
+    let records = this.commonService.getlocalStroage();
+    if(records != undefined && records != null) {
+      this.dataSource = new MatTableDataSource<RecordElement>(records);
+      this.cd.detectChanges();  
+    }
+  }
+  
 }
