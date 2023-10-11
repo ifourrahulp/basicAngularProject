@@ -15,7 +15,7 @@ export interface RecordElement {
   uploadImage?: string;
 }
 
-const ELEMENT_DATA: RecordElement[] = [
+const ELEMENT_DATA: [] = [
   // {id: 1, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
   // {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   // {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
@@ -35,6 +35,7 @@ const ELEMENT_DATA: RecordElement[] = [
 })
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'startDate', 'endDate','uploadImage','id'];
+  emptyColumns: string[] = ['empty-row'];
   dataSource = new MatTableDataSource<RecordElement>(ELEMENT_DATA);
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -67,10 +68,10 @@ export class HomeComponent implements OnInit {
   }
 
   removeElementArray(id: number) {
-    // let elements = this.dataSource.filter(x => x.id != id);
-    // this.dataSource = elements;
-    // this.openSnackBar();
-    // this.cd.detectChanges();    
+    let elements = this.dataSource?.data?.filter(x => x.id != id);
+    this.dataSource.data = elements;
+    this.openSnackBar();
+    this.cd.detectChanges();    
   }
 
   openSnackBar() {
@@ -89,10 +90,9 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      // console.log('The dialog was closed');
-      // if(result == CONFIRM.YES) {
-      //   this.removeElementArray(id); 
-      // }
+      if(result == CONFIRM.YES) {
+        this.removeElementArray(id); 
+      }
     });
   }
 }
