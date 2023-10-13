@@ -5,7 +5,7 @@ import { PageRoutingModule } from './page-routing.module';
 import { ConfirmPopupComponent } from './common/confirm-popup/confirm-popup.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddEditRecordComponent } from './add-edit-record/add-edit-record.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     PageRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PageModule { }
