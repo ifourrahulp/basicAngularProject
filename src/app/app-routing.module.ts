@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './common/_service/auth.service';
 
 const routes: Routes = [
-  // {
-  //   path: 'login',
-  //   loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  // },
   {
     path: '',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'home',
     // canActivate: [AuthService],
     loadChildren: () => import('./page/page.module').then(m => m.PageModule)
   } 

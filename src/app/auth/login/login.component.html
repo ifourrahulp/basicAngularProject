@@ -1,5 +1,24 @@
-<p>login works!</p>
-<!-- 
-<form>
-
-</form> -->
+<div class="example-form">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm">
+        <div class="custom-half">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" value="" formControlName="email">
+                <mat-error>Please Enter First Name</mat-error>
+              </mat-form-field>
+          
+              <mat-form-field  appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput placeholder="Last Name" value="" formControlName="password">
+                  <mat-error>Please Enter Last Name</mat-error>
+              </mat-form-field>
+        </div>
+    
+       
+        <div class="custom-half btn-wrapper">
+            <button mat-flat-button color="primary"  (click)="onSubmit()">Save</button>
+        </div>
+           
+      </form>
+</div>
