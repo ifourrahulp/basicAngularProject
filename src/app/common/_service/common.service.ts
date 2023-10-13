@@ -17,16 +17,11 @@ export class CommonService {
 
     getlocalStroage(){
         let getRecord = localStorage.getItem(ContstantSevice.ADDRECORD);
-        if(getRecord != undefined && getRecord != null) {
-            return JSON.parse(getRecord);
-        }
-        else {
-            return getRecord
-        }
+        return getRecord != undefined && getRecord != null ? JSON.parse(getRecord) : getRecord;
     }
 
 
-    openSnackBar(message) {
+    successMessage(message) {
         this._snackBar.open(message, 'X', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,

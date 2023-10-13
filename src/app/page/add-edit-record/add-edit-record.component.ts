@@ -76,9 +76,7 @@ export class AddEditRecordComponent implements OnInit {
        var reader = e.target;
        let imageSrc = reader.result;
        this.addRecordForm.get('uploadImage').setValue(imageSrc);
-    //    this.addRecordForm.controls('uploadImage')
-    //    this.loaded = true;
-        console.log(imageSrc, 'imagesrc');
+       console.log(imageSrc, 'imagesrc');
    }
     setRecordModel(record) {
         this.addRecordForm.patchValue({
@@ -120,7 +118,7 @@ export class AddEditRecordComponent implements OnInit {
                         records[recordIndex].endDate = formData['startDate'];
                     }
                     this.commonService.setlocalStroage(records);
-                    this.commonService.openSnackBar("Record Updated Sccessfully.");
+                    this.commonService.successMessage("Record Updated Sccessfully.");
                     this.oncancel();
                 }
             }
@@ -140,7 +138,7 @@ export class AddEditRecordComponent implements OnInit {
                     this.commonService.setlocalStroage(array); 
                 }  
 
-                this.commonService.openSnackBar("Record Insert Sccessfully.");
+                this.commonService.successMessage("Record Insert Sccessfully.");
                 this.oncancel();
             }
         }

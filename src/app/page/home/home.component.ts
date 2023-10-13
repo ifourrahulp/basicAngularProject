@@ -16,14 +16,7 @@ export interface RecordElement {
   uploadImage?: string;
 }
 
-const ELEMENT_DATA: RecordElement[] = [
-//  {id: 1, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-//  {id: 2, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-//  {id: 3, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-//  {id: 4, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-//  {id: 5, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-//  {id: 6, firstName: 'Hydrogen', lastName: 'Hydrogen', startDate: '11-09-2023', endDate: '11-09-2023', uploadImage: ''},
-];
+const ELEMENT_DATA: RecordElement[] = [];
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -32,11 +25,7 @@ const ELEMENT_DATA: RecordElement[] = [
 })
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'startDate', 'endDate','uploadImage','id'];
-  // emptyColumns: string[] = ['empty-row'];
   dataSource = new MatTableDataSource<RecordElement>(ELEMENT_DATA);
- 
-  // emptyData = new MatTableDataSource([{ empty: 'row' }]);
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public dialog: MatDialog, 
     private cd: ChangeDetectorRef, 
@@ -69,7 +58,7 @@ export class HomeComponent implements OnInit {
   removeElementArray(id: number) {
     let elements = this.dataSource?.data?.filter(x => x.id != id);
     this.dataSource.data = elements;
-    this.commonService.openSnackBar('Record deleted successfully.');
+    this.commonService.successMessage('Record deleted successfully.');
     this.cd.detectChanges();    
   }
 
