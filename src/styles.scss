@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.theme-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.theme-sm-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.d-jusify-content-center {
+    justify-content: center;
+}
